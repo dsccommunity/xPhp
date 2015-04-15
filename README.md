@@ -1,6 +1,6 @@
-{{AppVeyor build status badge for master branch}}
+[![Build status](https://ci.appveyor.com/api/projects/status/4umfdsbj520bmely/branch/master?svg=true)](https://ci.appveyor.com/project/PowerShell/xphp/branch/master)
 
-#{{ModuleName}}
+# xPhp
 
 {{Description}}
 
