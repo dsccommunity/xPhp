@@ -2,31 +2,37 @@
 
 # xPhp
 
-The xPhp module contains the xPhp DSC Resource. This DSC Resource allows you to Setup PHP in IIS and optionally register the MySql extention.
+
+## Contributing
+Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
+
 
 ## Resources
-* xPhp resource has following properties:
-    - PackageFolder: The folder to download the PHP and Visual C++ 2012 packages to. Note: this must already exist.
-    - DownloadUri:The URL/URI for the PHP package.
-    - VcRedistDownloadUri:The URL/URI for the Visual Studio C++ 2012 Redistributiable package.
-    - DestinationPath:The path to install PHP to.
-    - ConfigurationPath:The path to the file to use as PHP.ini
-    - InstallMySqlExt:A bool indicating if the MySql extesion should be installed.
-    - Renaming Requirements
-    - When making changes to these resources, we suggest the following practice:
+
+### xPhp
+
+* **PackageFolder**: The folder to download the PHP and Visual C++ 2012 packages to. **Note:** this must already exist. 
+* **DownloadUri**: The URL/URI for the PHP package.
+* **VcRedistDownloadUri**: The URL/URI for the Visual Studio C++ 2012 Redistributiable package.
+* **DestinationPath**: The path to install PHP.
+* **ConfigurationPath**: The path to the file to use as PHP.ini. 
+* **InstallMySqlExt**: A boolean indicating if the MySQL extension should be installed.
+
 
 ## Versions
 
-## 1.0.1
+### 1.0.1
 
-Initial release with xPhp resource.
+* Initial release with the following resources 
+    - xPhp
 
 
 ## Examples
 
-### Setup a Php Server on a single node
-This configuration will setup a Php Server on a sigle node.
-Note: this requires the following other modules: xWebAdministration, and xPsDesiredStateConfiguration. (see Example: Install xPhp Module and the other required modules).
+### Setup a PHP Server on a single node
+
+This configuration will setup a PHP server on a single node.
+Note: this configuration requires the following other modules: **xWebAdministration**, and **xPsDesiredStateConfiguration**. 
 
 ```powershell
 # This configuration will, via the xPHP composite configuration: 
@@ -78,20 +84,4 @@ Configuration SamplePhp
 } 
 SamplePhp 
 Start-DscConfiguration -path .\SamplePhp -wait -verbose
-``` 
-
-### Install xPhp Module and the other required modules
-Note: This require a version of WMF 5 see the Powershell Resource Gallery for more details
-
-```powershell
-# This Script installs the required modules for the PHP Sample
-# It uses the PowerShell Resource Gallery, see https://powershellgallery.com/
-# This requires WMF 5.   If you don't have WMF 5, Please install the modules manually.
-Write-Host "Installing required modules..."
-Install-Module xWebAdministration -MinimumVersion 1.3.2 -Force 
-Install-Module xPSDesiredStateConfiguration -MinimumVersion 3.0.1 -Force 
-Install-Module xPhp -MinimumVersion 1.0.1 -Force
 ```
-
-## Contributing
-Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
