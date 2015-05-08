@@ -26,7 +26,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * Initial release with the following resources 
     - xPhp
 
-### 1.0.?
+### unreleased
 
 * Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
     - xPhpProvision
