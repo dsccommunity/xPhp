@@ -1,7 +1,7 @@
 # Composite configuration to install the IIS pre-requisites for php
 Configuration IisPreReqs_php
 {
-param
+    param
     (
         [Parameter(Mandatory = $true)]
         [Validateset("Present","Absent")]
@@ -28,17 +28,14 @@ configuration xPhpProvision
         [Parameter(Mandatory = $true)]
         [switch] $installMySqlExt,
 
-        [Parameter(Mandatory = $true)]
-        [string] $PackageFolder,
+        [string] $PackageFolder = 'c:\package',
 
         [Parameter(Mandatory = $true)]
         [string] $DownloadUri,
 
-        [Parameter(Mandatory = $true)]
-        [string] $Vc2012RedistDownloadUri,
+        [string] $Vc2012RedistDownloadUri = 'http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe',
 
-        [Parameter(Mandatory = $true)]
-        [String] $DestinationPath,
+        [String] $DestinationPath = 'C:\php',
 
         [Parameter(Mandatory = $true)]
         [string] $ConfigurationPath
