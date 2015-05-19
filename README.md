@@ -9,7 +9,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ## Resources
 
-### xPhp
+### xPhpProvision
 
 * **PackageFolder**: The folder to download the PHP and Visual C++ 2012 packages to. **Note:** this must already exist. 
 * **DownloadUri**: The URL/URI for the PHP package.
@@ -26,6 +26,11 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * Initial release with the following resources 
     - xPhp
 
+### unreleased
+
+* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
+    - xPhpProvision
+
 
 ## Examples
 
@@ -35,7 +40,7 @@ This configuration will setup a PHP server on a single node.
 Note: this configuration requires the following other modules: **xWebAdministration**, and **xPsDesiredStateConfiguration**. 
 
 ```powershell
-# This configuration will, via the xPHP composite configuration: 
+# This configuration will, via the xPhpProvision composite configuration: 
 # 1) Make sure IIS is installed 
 # 2) Make sure PHP is present 
 # 3) Make sure that PHP is registered with IIS 
@@ -67,7 +72,7 @@ Configuration SamplePhp
             Ensure = "Present" 
         } 
         # Make sure PHP is installed in IIS 
-        xPhp  php 
+        xPhpProvision  php 
         { 
             InstallMySqlExt = $true 
             PackageFolder =  "C:\package" 
