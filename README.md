@@ -21,6 +21,9 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ## Versions
 
+### 1.1.0.0
+* Updated module name to support WMF 5
+
 ### 1.0.1
 
 * Initial release with the following resources 
