@@ -6,25 +6,26 @@
 #
 # ********* NOTE ***********
 # PHP changes their download URLs frequently.  Please verify the URL.
-# the VC Redist URL changes less frequently, but should still be verified.
+# The VC Redist URL changes less frequently, but should still be verified.
 # After verifying the download URLs for the products and update them appropriately.
 # **************************
 $scriptRoot = Split-Path $MyInvocation.MyCommand.Path
 $phpIniPath = (Join-Path $scriptRoot 'phpConfigTemplate.txt')
+
 if (-not (Test-Path $phpIniPath))
 {
     $message = "Missing required file $phpIniPath"
     # This file is in the samples folder of the resource
     throw $message
 }
+
 Configuration SamplePhp
 {
     # Import composite resources
-    Import-DscResource -module xPhp
+    Import-DscResource -Module xPhp
 
     Node 'localhost'
     {
-
         File PackagesFolder
         {
             DestinationPath = 'C:\package'
