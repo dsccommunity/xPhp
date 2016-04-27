@@ -23,6 +23,8 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ### Unreleased
 
+* Added dependencies on xPSDesiredStateConfiguration and xWebAdministration
+
 ### 1.1.0.0
 
 * Updated module name to support WMF 5
