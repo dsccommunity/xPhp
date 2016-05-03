@@ -38,6 +38,12 @@ function Install-RequiredModules {
 Install-RequiredModules -RequiredModules $requiredModules
 
 Describe 'xPhpProvision' {
+    It 'Should have required modules' {
+        foreach ($requiredModule in $requiredModules) {
+            Get-Module $requiredModule | Should Not Be $null
+        }
+    }
+
     It 'Should import without error' {
         { Import-Module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.psd1" } | Should Not throw
     }
