@@ -16,7 +16,6 @@ Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
 $ErrorActionPreference = 'stop'
 Set-StrictMode -Version latest
 
-<#
 $requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
 
 function Install-RequiredModules {
@@ -37,7 +36,6 @@ function Install-RequiredModules {
 }
 
 Install-RequiredModules -RequiredModules $requiredModules
-#>
 
 Describe 'xPhpProvision' {
     It 'Should import without error' {
