@@ -20,7 +20,7 @@ $requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
 
 foreach ($requiredModule in $requiredModules) {
     if (-not (Get-Module $requiredModule -ListAvailable)) {
-        Install-Module $requiredModule
+        Install-Module $requiredModule -Force
     }
 
     Import-Module $requiredModule
