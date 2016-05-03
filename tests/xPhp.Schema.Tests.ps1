@@ -5,10 +5,17 @@
 [CmdletBinding()]
 param ()
 
+$xPhpModuleRoot = "${env:ProgramFiles}\WindowsPowerShell\Modules\xPhp"
+
+if (-not (Test-Path $xPhpModuleRoot))
+{
+    md $xPhpModuleRoot > $null
+}
+Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
+
 $ErrorActionPreference = 'stop'
 Set-StrictMode -Version latest
 
-$xPhpModuleRoot = "${env:ProgramFiles}\WindowsPowerShell\Modules\xPhp"
 $requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
 
 function Install-RequiredModules {
@@ -19,12 +26,14 @@ function Install-RequiredModules {
 
     foreach ($requiredModule in $RequiredModules) {
         if (-not (Get-Module $requiredModule -ListAvailable)) {
-            Write-Host "Installing  required module $requiredModule..."
+            Write-Verbose "Installing  required module $requiredModule..."
             Install-Module $requiredModule -Force
         }
 
-        Write-Host "Importing required module $requiredModule..."
-        Import-Module $requiredModule
+        if (-not (Get-Module $requiredModule)) {
+            Write-Verbose "Importing required module $requiredModule..."
+            Import-Module $requiredModule
+        }
     }
 }
 
@@ -38,7 +47,7 @@ Describe 'xPhpProvision' {
     }
 
     It 'Should import without error' {
-        { Import-Module $xPhpModuleRoot -Force } | Should Not throw
+        { Import-Module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.psd1" -Force } | Should Not throw
     }
 
     It 'Should return from Get-DscResource' {
