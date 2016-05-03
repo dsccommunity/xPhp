@@ -16,19 +16,32 @@ Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
 $ErrorActionPreference = 'stop'
 Set-StrictMode -Version latest
 
+<#
 $requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
 
-foreach ($requiredModule in $requiredModules) {
-    if (-not (Get-Module $requiredModule -ListAvailable)) {
-        Install-Module $requiredModule -Force
-    }
+function Install-RequiredModules {
+    [CmdletBinding()]
+    param (
+        [string[]] $RequiredModules
+    )
 
-    Import-Module $requiredModule
+    foreach ($requiredModule in $RequiredModules) {
+        if (-not (Get-Module $requiredModule -ListAvailable)) {
+            Write-Host "Installing  required module $requiredModule..."
+            Install-Module $requiredModule -Force
+        }
+
+        Write-Host "Installing required module $requiredModule..."
+        Import-Module $requiredModule
+    }
 }
+
+Install-RequiredModules -RequiredModules $requiredModules
+#>
 
 Describe 'xPhpProvision' {
     It 'Should import without error' {
-        { Import-Module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.Schema.psm1" } | Should Not throw
+        { Import-Module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.psd1" } | Should Not throw
     }
 
     It 'Should return from Get-DscResource' {
