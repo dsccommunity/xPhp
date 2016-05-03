@@ -1,49 +1,28 @@
 <# 
     .SUMMARY
-    Test suite for xPhp.Schema.psm1. This must be run from an elevated PowerShell session.
+    Test suite for xPhp.Schema.psm1. 
+    This must be run from an elevated PowerShell session.
 #>
 [CmdletBinding()]
 param ()
 
+$ErrorActionPreference = 'stop'
+Set-StrictMode -Version latest
+
+$requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration' )
 $xPhpModuleRoot = "${env:ProgramFiles}\WindowsPowerShell\Modules\xPhp"
 
 if (-not (Test-Path $xPhpModuleRoot))
 {
-    md $xPhpModuleRoot > $null
+    New-Item -Path $xPhpModuleRoot -ItemType Directory | Out-Null
 }
 Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
 
-$ErrorActionPreference = 'stop'
-Set-StrictMode -Version latest
-
-$requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
-
-function Install-RequiredModules {
-    [CmdletBinding()]
-    param (
-        [string[]] $RequiredModules
-    )
-
-    foreach ($requiredModule in $RequiredModules) {
-        if (-not (Get-Module $requiredModule -ListAvailable)) {
-            Write-Verbose "Installing  required module $requiredModule..."
-            Install-Module $requiredModule -Force
-        }
-
-        if (-not (Get-Module $requiredModule)) {
-            Write-Verbose "Importing required module $requiredModule..."
-            Import-Module $requiredModule
-        }
-    }
-}
-
-Install-RequiredModules -RequiredModules $requiredModules
-
 Describe 'xPhpProvision' {
-    It 'Should have 1 copy of all required modules in PS Module Path' {
+    It 'Should have 1 available copy of all required modules in PS Module Path' {
         foreach ($requiredModule in $requiredModules) {
             $modulesFound = @()
-            $modulesFound += Get-Module $requiredModule
+            $modulesFound += Get-Module $requiredModule -ListAvailable
             $modulesFound.Count | Should Be 1
         }
     }
@@ -53,10 +32,11 @@ Describe 'xPhpProvision' {
     }
 
     It 'Should return from Get-DscResource' {
-        $xphp = Get-DscResource -Name xPhpProvision
-        $xphp.ResourceType | Should Be 'xPhpProvision'
-        $xphp.Module | Should Be 'xPhp'
-        $xphp.FriendlyName | Should BeNullOrEmpty
-        $xphp.ImplementedAs | Should Be 'Composite'
+        $xPhp = Get-DscResource -Name xPhpProvision
+
+        $xPhp.ResourceType  | Should Be 'xPhpProvision'
+        $xPhp.Module        | Should Be 'xPhp'
+        $xPhp.FriendlyName  | Should BeNullOrEmpty
+        $xPhp.ImplementedAs | Should Be 'Composite'
     }
 }
