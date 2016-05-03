@@ -1,6 +1,6 @@
 <# 
     .SUMMARY
-    Test suite for ExportToHtml.psm1
+    Test suite for xPhp.Schema.psm1. This must be run from an elevated PowerShell session.
 #>
 [CmdletBinding()]
 param ()
@@ -15,6 +15,16 @@ Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
 
 $ErrorActionPreference = 'stop'
 Set-StrictMode -Version latest
+
+$requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration')
+
+foreach ($requiredModule in $requiredModules) {
+    if (-not (Get-Module $requiredModule -ListAvailable)) {
+        Install-Module $requiredModule
+    }
+
+    Import-Module $requiredModule
+}
 
 Describe 'xPhpProvision' {
     It 'Should import without error' {
