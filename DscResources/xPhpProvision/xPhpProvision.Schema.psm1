@@ -12,7 +12,7 @@ Configuration IisPreReqs_php
             "Web-Http-Logging", "Web-Stat-Compression", "Web-Filtering", `
             "Web-CGI", "Web-ISAPI-Ext", "Web-ISAPI-Filter"))
     {
-        WindowsFeature "$feature$Number"
+        WindowsFeature "$feature"
         {
             Ensure = $Ensure
             Name = $feature
