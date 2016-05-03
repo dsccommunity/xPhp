@@ -40,8 +40,8 @@ Configuration xPhpProvision
         [String] $ConfigurationPath
     )
     
-    Import-DscResource -Module xPsDesiredStateConfiguration
-    Import-DscResource -Module xWebAdministration
+    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName xPsDesiredStateConfiguration 
 
     # Make sure the IIS Prerequisites for PHP are present
     IisPreReqs_php Iis
