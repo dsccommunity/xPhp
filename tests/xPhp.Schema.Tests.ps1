@@ -30,7 +30,7 @@ function Install-RequiredModules {
             Install-Module $requiredModule -Force
         }
 
-        Write-Host "Installing required module $requiredModule..."
+        Write-Host "Importing required module $requiredModule..."
         Import-Module $requiredModule
     }
 }

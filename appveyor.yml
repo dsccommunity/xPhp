@@ -16,6 +16,8 @@ install:
       Write-Info "outputDirectory: '$outputDirectory'"
       Install-NugetPackage -package xWebAdministration -outputDirectory $outputDirectory
       Install-NugetPackage -package xPSDesiredStateConfiguration -outputDirectory $outputDirectory
+      Import-Module xPSDesiredStateConfiguration
+      Import-Module xWebAdministration
 
 #---------------------------------# 
 #      build configuration        # 
