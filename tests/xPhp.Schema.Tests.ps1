@@ -40,9 +40,11 @@ function Install-RequiredModules {
 Install-RequiredModules -RequiredModules $requiredModules
 
 Describe 'xPhpProvision' {
-    It 'Should have required modules' {
+    It 'Should have 1 copy of all required modules in PS Module Path' {
         foreach ($requiredModule in $requiredModules) {
-            Get-Module $requiredModule | Should Not Be $null
+            $modulesFound = @()
+            $modulesFound += Get-Module $requiredModule
+            $modulesFound.Count | Should Be 1
         }
     }
 
