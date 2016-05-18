@@ -24,6 +24,8 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 ### Unreleased
 
 * Added dependencies on xPSDesiredStateConfiguration and xWebAdministration
+* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
+    - xPhpProvision
 
 ### 1.1.0.0
 
@@ -33,12 +35,6 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 * Initial release with the following resources 
     - xPhp
-
-### unreleased
-
-* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
-    - xPhpProvision
-
 
 ## Examples
 
