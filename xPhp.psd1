@@ -11,7 +11,7 @@
 #RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '1.2.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'a7e316cc-d538-4c67-b72c-c89c8fc013cd'
@@ -100,7 +100,11 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Added dependencies on xPSDesiredStateConfiguration and xWebAdministration
+* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
+    - xPhpProvision
+
+'
 
     } # End of PSData hashtable
 
