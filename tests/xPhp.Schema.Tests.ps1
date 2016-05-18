@@ -1,62 +1,42 @@
-﻿<# 
-.summary
-    Test suite for ExportToHtml.psm1
+<# 
+    .SUMMARY
+    Test suite for xPhp.Schema.psm1. 
+    This must be run from an elevated PowerShell session.
 #>
 [CmdletBinding()]
-param()
-
-$xPhpModuleRoot = "${env:ProgramFiles}\WindowsPowerShell\Modules\xPhp"
-
-if(!(test-path $xPhpModuleRoot))
-{
-    md $xPhpModuleRoot > $null
-}
-Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -force -exclude '.git'
+param ()
 
 $ErrorActionPreference = 'stop'
 Set-StrictMode -Version latest
 
-function Suite.BeforeAll {
-    # Remove any leftovers from previous test runs
-    Suite.AfterAll 
+$requiredModules = @( 'xPSDesiredStateConfiguration', 'xWebAdministration' )
+$xPhpModuleRoot = "${env:ProgramFiles}\WindowsPowerShell\Modules\xPhp"
 
-} 
-
-function Suite.AfterAll {
-}
-
-function Suite.BeforeEach {
-}
-
-try
+if (-not (Test-Path $xPhpModuleRoot))
 {
-    Describe 'xPhpProvision' {
-        BeforeEach {
-            Suite.BeforeEach
+    New-Item -Path $xPhpModuleRoot -ItemType Directory | Out-Null
+}
+Copy-Item -Recurse  $PSScriptRoot\..\* $xPhpModuleRoot -Force -Exclude '.git'
+
+Describe 'xPhpProvision' {
+    It 'Should have 1 available copy of all required modules in PS Module Path' {
+        foreach ($requiredModule in $requiredModules) {
+            $modulesFound = @()
+            $modulesFound += Get-Module $requiredModule -ListAvailable
+            $modulesFound.Count | Should Be 1
         }
-
-        AfterEach {
-        }
-
-            It 'Should import without error' {
-                {
-                import-module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.Schema.psm1"
-                }|  should not throw
-            }
-
-            It 'Should return from Get-DscResource' {
-                $xphp = Get-DscResource -Name xPhpProvision
-                $xphp.ResourceType | should be 'xPhpProvision'
-                $xphp.Module | should be 'xPhp'
-                $xphp.FriendlyName | should BeNullOrEmpty
-                $xphp.ImplementedAs | should be 'Composite'
-            }
     }
 
+    It 'Should import without error' {
+        { Import-Module "$xPhpModuleRoot\DscResources\xPhpProvision\xPhpProvision.psd1" -Force } | Should Not throw
+    }
 
-}
-finally
-{
-    Suite.AfterAll
-}
+    It 'Should return from Get-DscResource' {
+        $xPhp = Get-DscResource -Name xPhpProvision
 
+        $xPhp.ResourceType  | Should Be 'xPhpProvision'
+        $xPhp.Module        | Should Be 'xPhp'
+        $xPhp.FriendlyName  | Should BeNullOrEmpty
+        $xPhp.ImplementedAs | Should Be 'Composite'
+    }
+}
