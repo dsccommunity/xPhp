@@ -3,17 +3,16 @@
 #---------------------------------# 
 version: 1.2.{build}.0
 install: 
-  - cinst -y pester
-  - git clone https://github.com/PowerShell/DscResource.Tests
-  - ps: Push-Location
-  - cd DscResource.Tests
-  - ps: Import-Module .\TestHelper.psm1 -force
-  - ps: Pop-Location
-  - ps: |
-      &nuget.exe install PoshBuildTools -source https://ci.appveyor.com/nuget/PoshBuildTools -outputDirectory "$env:USERPROFILE\Documents\WindowsPowerShell\Modules\" -ExcludeVersion -Version 1.0.0.48
-      Import-Module PoshBuildTools
-      Install-NugetPackage -package xWebAdministration
-      Install-NugetPackage -package xPSDesiredStateConfiguration
+    - git clone https://github.com/PowerShell/DscResource.Tests
+    - ps: |
+        Import-Module -Name .\DscResource.Tests\TestHelper.psm1 -Force
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-Module -Name Pester -Repository PSGallery -Force
+        Register-PSRepository -Name PoshBuildTools -SourceLocation https://ci.appveyor.com/nuget/poshbuildtools
+        Install-Module -Name PoshBuildTools -Scope CurrentUser -Force
+        Import-Module PoshBuildTools
+        Install-NugetPackage -Package xWebAdministration
+        Install-NugetPackage -Package xPSDesiredStateConfiguration
 
 #---------------------------------# 
 #      build configuration        # 
