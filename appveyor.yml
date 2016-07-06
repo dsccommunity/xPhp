@@ -11,8 +11,6 @@ install:
         Register-PSRepository -Name PoshBuildTools -SourceLocation https://ci.appveyor.com/nuget/poshbuildtools
         Install-Module -Name PoshBuildTools -Scope CurrentUser -Force
         Import-Module PoshBuildTools
-        Install-Module -Name xWebAdministration -Repository PSGallery -Force
-        Install-Module -Name xPSDesiredStateConfiguration -Repository PSGallery -Force
 
 #---------------------------------# 
 #      build configuration        # 
