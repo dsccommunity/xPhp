@@ -9,7 +9,7 @@ install:
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
         Install-Module -Name Pester -Repository PSGallery -Force
         Register-PSRepository -Name PoshBuildTools -SourceLocation https://ci.appveyor.com/nuget/poshbuildtools
-        Install-Module -Name PoshBuildTools -Scope CurrentUser
+        Install-Module -Name PoshBuildTools -Scope CurrentUser -Force
         Import-Module PoshBuildTools
         Install-Module -Name xWebAdministration -Repository PSGallery -Force
         Install-Module -Name xPSDesiredStateConfiguration -Repository PSGallery -Force
