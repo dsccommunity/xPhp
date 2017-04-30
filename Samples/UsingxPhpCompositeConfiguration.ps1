@@ -34,15 +34,15 @@ Configuration SamplePhp
         }
 
         # Make sure PHP is installed in IIS
-        xPhpProvision  php
+        xPhpProvision php
         {
             InstallMySqlExt = $true
             PackageFolder =  'C:\package'
-            # Update with the latest "VC11 x64 Non Thread Safe" from http://windows.php.net/download/
-            DownloadURI = 'http://windows.php.net/downloads/releases/php-5.6.8-nts-Win32-VC11-x64.zip'
+            # Update with the latest "VC14 x64 Non Thread Safe" from http://windows.php.net/download/
+            DownloadURI = 'http://windows.php.net/downloads/releases/php-7.1.4-nts-Win32-VC14-x64.zip'
             DestinationPath = 'C:\php'
             ConfigurationPath = $phpIniPath
-            Vc2012RedistDownloadUri = 'http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe'
+            Vc2012RedistDownloadUri = 'https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe'
 
             # Removed because this dependency does not work in Windows Server 2012 R2 and below
             # This should work in WMF v5 and above
@@ -53,4 +53,4 @@ Configuration SamplePhp
 
 SamplePhp
 
-Start-DscConfiguration -path .\SamplePhp -wait -verbose
+Start-DscConfiguration -Path .\SamplePhp -Wait -Verbose
