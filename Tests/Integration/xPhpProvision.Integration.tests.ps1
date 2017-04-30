@@ -32,11 +32,9 @@ try
 
     $DSCConfig = Import-LocalizedData -BaseDirectory $PSScriptRoot -FileName "$($script:DSCResourceName).config.psd1"
 
-    Describe "$($script:DSCResourceName)_Integration"
-    {
+    Describe "$($script:DSCResourceName)_Integration" {
         #region DEFAULT TESTS
-        It 'Should compile and apply the MOF without throwing'
-        {
+        It 'Should compile and apply the MOF without throwing' {
             {
                 & "$($script:DSCResourceName)_Config" -ConfigurationData $DSCConfig -OutputPath $TestDrive
                 Start-DscConfiguration -Path $TestDrive `
@@ -44,14 +42,12 @@ try
             } | Should not throw
         }
 
-        It 'Should be able to call Get-DscConfiguration without throwing'
-        {
+        It 'Should be able to call Get-DscConfiguration without throwing' {
             { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
         }
         #endregion
 
-        It 'Should have set the resource and all the parameters should match'
-        {
+        It 'Should have set the resource and all the parameters should match' {
             $currentConfiguration = Get-DscConfiguration
 
             # Visual C++ Runtime should be installed
