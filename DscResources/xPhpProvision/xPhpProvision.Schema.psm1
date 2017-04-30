@@ -1,11 +1,13 @@
 # Composite configuration to install the IIS pre-requisites for php
 Configuration IisPreReqs_php
 {
-    param (
+    param
+    (
         [Parameter(Mandatory = $true)]
         [Validateset("Present","Absent")]
-        [String] $Ensure
-    )    
+        [System.String]
+        $Ensure
+    )
 
     foreach ($feature in @("Web-Server", "Web-Mgmt-Tools", "Web-Default-Doc", `
             "Web-Dir-Browsing", "Web-Http-Errors", "Web-Static-Content", `
@@ -23,25 +25,32 @@ Configuration IisPreReqs_php
 # Composite configuration to install PHP on IIS
 Configuration xPhpProvision
 {
-    param (
+    param
+    (
         [Parameter(Mandatory = $true)]
-        [switch] $InstallMySqlExt,
+        [Switch]
+        $InstallMySqlExt,
 
-        [String] $PackageFolder = 'c:\package',
-
-        [Parameter(Mandatory = $true)]
-        [String] $DownloadUri,
-
-        [String] $Vc2012RedistDownloadUri = 'http://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe',
-
-        [String] $DestinationPath = 'C:\php',
+        [System.String]
+        $PackageFolder = 'c:\package',
 
         [Parameter(Mandatory = $true)]
-        [String] $ConfigurationPath
+        [System.String]
+        $DownloadUri,
+
+        [System.String]
+        $Vc2012RedistDownloadUri = 'https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe',
+
+        [System.String]
+        $DestinationPath = 'C:\php',
+
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $ConfigurationPath
     )
-    
+
     Import-DscResource -ModuleName xWebAdministration
-    Import-DscResource -ModuleName xPsDesiredStateConfiguration 
+    Import-DscResource -ModuleName xPsDesiredStateConfiguration
 
     # Make sure the IIS Prerequisites for PHP are present
     IisPreReqs_php Iis
@@ -53,12 +62,12 @@ Configuration xPhpProvision
         # DependsOn = "[File]PackagesFolder"
     }
 
-    # Download and install Visual C Redist2012 from chocolatey.org
+    # Download and install Visual C++ Redist 2015 from microsoft.com
     Package vcRedist
     {
         Path = $Vc2012RedistDownloadUri
-        ProductId = "{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}"
-        Name = "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.61030"
+        ProductId = "{0D3E9E15-DE7A-300B-96F1-B4AF12B96488}"
+        Name = "Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.23026"
         Arguments = "/install /passive /norestart"
     }
 
@@ -90,12 +99,12 @@ Configuration xPhpProvision
     }
 
     if ($InstallMySqlExt)
-    {               
+    {
         # Make sure the MySql extention for PHP is in the main PHP path
         File phpMySqlExt
         {
-            SourcePath = "$($DestinationPath)\ext\php_mysql.dll"
-            DestinationPath = "$($DestinationPath)\php_mysql.dll"
+            SourcePath = "$($DestinationPath)\ext\php_mysqli.dll"
+            DestinationPath = "$($DestinationPath)\php_mysqli.dll"
             Ensure = "Present"
             DependsOn = @("[Archive]PHP")
             MatchSource = $true

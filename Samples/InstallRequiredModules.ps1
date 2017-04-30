@@ -6,4 +6,3 @@ Write-Host "Installing required modules..."
 Install-Module xWebAdministration -MinimumVersion 1.3.2 -Force
 Install-Module xPSDesiredStateConfiguration -MinimumVersion 3.0.1 -Force
 Install-Module xPhp -MinimumVersion 1.0.1 -Force
-
