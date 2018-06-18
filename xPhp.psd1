@@ -29,7 +29,7 @@ Copyright = '(c) 2014 Microsoft Corporation. All rights reserved.'
 Description = 'Module for configuring PHP'
 
 # Minimum version of the Windows PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '4.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -101,7 +101,7 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '* Added dependencies on xPSDesiredStateConfiguration and xWebAdministration
-* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module. 
+* Renamed the resource as it was named against naming standards and resources cannot be named the same as the module.
     - xPhpProvision
 
 '
