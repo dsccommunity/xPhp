@@ -26,9 +26,12 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ### Unreleased
 
-* Updated to the default appveyor.yml
+* Update appveyor.yml to use the default template.
 * Activated the GitHub App Stale on the GitHub repository
 * Updated manifest property PowerShellVersion to '4.0' to pass tests.
+* Added default template files .codecov.yml, .gitattributes, and .gitignore, and
+  .vscode folder.
+* Remove the use of PoshBuildTools from appveyor.yml.
 
 ### 1.2.0.0
 
